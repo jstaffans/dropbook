@@ -1,0 +1,35 @@
+quotes:
+
+  - Glory is fleeting, but obscurity is forever.
+  - If a man does his best, what else is there?
+  - Not everything that can be counted counts, and not everything that counts can be counted.
+  - I find that the harder I work, the more luck I seem to have.
+  - Do, or don't. There is no "try".
+
+database:
+
+  driverClass: org.h2.Driver
+  user: sa
+  password: sa
+  url: jdbc:h2:mem:dropbook;DB_CLOSE_DELAY=-1
+
+http:
+
+  port: 8080
+  rootPath: /service/*
+
+shiro_configuration:
+
+  enabled: true
+  dropwizard_session_handler: false
+
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+assets:
+
+    overrides:
+
+        /: src/main/resources/assets

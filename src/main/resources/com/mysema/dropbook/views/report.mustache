@@ -1,0 +1,60 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Wisdom report</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+    <link rel="stylesheet" href="/static/styles/report.css">
+</head>
+<body>
+
+<div class="content pure-g-r">
+
+    <div class="splash pure-u-1">
+        <div class="pure-g-r content-ribbon">
+            <div class="pure-u-1">
+                <div class="l-box splash-text">
+                    <h1 class="splash-head">
+                        The Wisdom report.
+                    </h1>
+
+                    <h2 class="splash-subhead">
+                        <p>
+                            This page was rendered on the server using <a href="http://dropwizard.codahale.com/manual/views/">
+                            Dropwizard Views</a> and <a href="http://mustache.github.io/mustache.5.html">mustache</a>.
+                            <br />CSS is provided by <a href="http://purecss.io">Pure</a> and is statically served
+                            using the <a href="https://github.com/bazaarvoice/dropwizard-configurable-assets-bundle">
+                            Dropwizard Configurable Assets Bundle</a>.
+                        </p>
+                        <p>
+                            irritating thing about working with Dropwizard Views is that you need
+                            to <a href="https://groups.google.com/forum/#!topic/dropwizard-user/QTS5cUVi2Wg">coerce the IDE to rebuild templates</a>,
+                            otherwise you have to restart the Dropwizard service when making changes to the template.
+                        </p>
+                        </a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content pure-u-1">
+        <div class="pure-g-r content-ribbon">
+            <div class="pure-u-1">
+                <div class="l-box">
+                    <h4 class="content-subhead">Currently known quotes:</h4>
+
+                    <ul>
+                        {{#wisdoms}}
+                            <li>"{{quote}}"</li>
+                        {{/wisdoms}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

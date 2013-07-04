@@ -1,0 +1,13 @@
+<div class="pure-u-2-3">
+  <form class="pure-form" id="user" name="user" novalidate>
+    <fieldset>
+      <legend>Free wisdom</legend>
+
+      <input id="username" type="text" placeholder="Username" ng-model="user.username" required>
+      <input id="password" type="password" placeholder="Password" ng-model="user.password" required>
+
+      <button type="submit" class="pure-button pure-button-primary" ng-disabled="user.$invalid" ng-click="login()">Sign in</button>
+      <button type="register" class="pure-button" ng-disabled="user.$invalid" ng-click="register()">Register</button>
+    </fieldset>
+  </form>
+</div>
