@@ -2,7 +2,6 @@ package com.mysema.dropbook.security;
 
 import com.mysema.dropbook.DatabaseHelper;
 import io.ifar.security.dao.jdbi.DefaultRoleImpl;
-import io.ifar.security.dao.jdbi.DefaultUserImpl;
 import io.ifar.security.realm.JdbiShiroRealm;
 import io.ifar.security.realm.model.ISecurityRole;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,7 @@ import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.config.IniSecurityManagerFactory;
-import org.apache.shiro.mgt.*;
+import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.subject.support.SubjectThreadState;
@@ -25,9 +24,7 @@ import org.junit.*;
 import java.util.Collections;
 import java.util.Set;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @Slf4j
 public class TestJdbiShiroRealm {

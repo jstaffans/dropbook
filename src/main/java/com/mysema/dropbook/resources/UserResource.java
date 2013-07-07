@@ -2,17 +2,12 @@ package com.mysema.dropbook.resources;
 
 import com.mysema.dropbook.security.DropbookUser;
 import com.mysema.dropbook.security.DropbookUserDao;
-import freemarker.core.ReturnInstruction;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authc.credential.PasswordService;
-import org.apache.shiro.config.IniSecurityManagerFactory;
-import org.apache.shiro.mgt.DefaultSecurityManager;
-import org.apache.shiro.mgt.RealmSecurityManager;
 import org.apache.shiro.subject.Subject;
 
 import javax.validation.Valid;
@@ -34,23 +29,6 @@ public class UserResource {
     public UserResource(DropbookUserDao dao, PasswordService passwordService) {
         this.dao = dao;
         this.passwordService = passwordService;
-    }
-
-    @GET
-    @Path("/testRegister")
-    public String testRegister() {
-        DropbookUser user = new DropbookUser(null, "testuser", "asdfoo", DropbookUser.DEFAULT_ROLES);
-
-        UsernamePasswordToken loginToken = new UsernamePasswordToken("testuser", "asdfoo");
-
-        String hashedPassword = passwordService.encryptPassword("asdfoo");
-        user.setPassword(hashedPassword);
-        user.setRoles(DropbookUser.DEFAULT_ROLES);
-        dao.createUser(user);
-
-        doLogin(loginToken);
-
-        return "Registered.";
     }
 
     @POST
@@ -86,11 +64,22 @@ public class UserResource {
         }
     }
 
-    @GET
+    @POST
     @Path("/login")
     public Response login(@Valid DropbookUser user) {
         UsernamePasswordToken loginToken = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         doLogin(loginToken);
+        return Response.ok().build();
+    }
+
+    @GET
+    @Path("/logout")
+    public Response logout() {
+        final Subject subject = SecurityUtils.getSubject();
+        if (subject != null) {
+            subject.logout();
+        }
+
         return Response.ok().build();
     }
 

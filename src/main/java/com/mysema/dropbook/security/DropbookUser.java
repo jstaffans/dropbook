@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.ifar.security.dao.jdbi.DefaultRoleImpl;
 import io.ifar.security.dao.jdbi.DefaultUserImpl;
 import io.ifar.security.realm.model.ISecurityRole;
-import io.ifar.security.realm.model.ISecurityUser;
-import lombok.Getter;
 
 import java.util.Collections;
 import java.util.Set;

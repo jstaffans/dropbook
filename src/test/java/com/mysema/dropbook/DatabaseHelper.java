@@ -1,16 +1,12 @@
 package com.mysema.dropbook;
 
-import com.mysema.dropbook.security.DropbookUserDao;
 import com.mysema.dropbook.security.DefaultDropbookUserDao;
+import com.mysema.dropbook.security.DropbookUserDao;
 import io.ifar.security.dao.UserSecurityDAO;
 import io.ifar.security.dao.jdbi.DefaultJdbiUserSecurityDAO;
 import liquibase.Liquibase;
-import liquibase.database.jvm.HsqlConnection;
 import liquibase.database.jvm.JdbcConnection;
-import liquibase.logging.LogFactory;
 import liquibase.resource.ClassLoaderResourceAccessor;
-import liquibase.resource.FileSystemResourceAccessor;
-import liquibase.resource.ResourceAccessor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.io.ResourceUtils;
 import org.skife.jdbi.v2.DBI;
@@ -18,8 +14,6 @@ import org.skife.jdbi.v2.Handle;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Properties;
 
 @Slf4j

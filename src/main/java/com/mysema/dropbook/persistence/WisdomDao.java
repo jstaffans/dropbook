@@ -1,14 +1,12 @@
 package com.mysema.dropbook.persistence;
 
 import com.mysema.dropbook.core.Wisdom;
-import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 import java.util.Iterator;
-import java.util.List;
 
 public interface WisdomDao {
 

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
-import java.util.Collections;
 
 public class DropbookUserDeserializer extends JsonDeserializer<DropbookUser> {
     @Override

@@ -28,7 +28,6 @@ import org.joda.time.DateTime;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
 
-
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 

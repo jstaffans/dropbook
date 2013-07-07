@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.yammer.dropwizard.json.JsonSnakeCase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;
 import org.joda.time.DateTime;
-
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
