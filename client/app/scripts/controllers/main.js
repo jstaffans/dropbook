@@ -2,7 +2,7 @@
 
 angular.module('clientApp')
   .controller('MainCtrl', function ($scope, Restangular, userService) {
-  	$scope.getNewQuote = function() {
+    $scope.getNewQuote = function() {
       var wisdomPromise = Restangular.one('wisdom', 'random').get();
       wisdomPromise.then(function (wisdom) {
         $scope.quote = wisdom.quote;
@@ -10,8 +10,8 @@ angular.module('clientApp')
     };
 
     $scope.logout = function() {
-    	userService.logout();
-    }
+      userService.logout();
+    };
 
     $scope.getNewQuote();
   });

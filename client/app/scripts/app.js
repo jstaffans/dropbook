@@ -21,7 +21,7 @@ angular.module('clientApp', ['ngCookies', 'restangular'])
     RestangularProvider.setDefaultHttpFields({withCredentials: true});
     RestangularProvider.setErrorInterceptor(function(response) {
       if (response.status === 403) {
-        window.location = "/login";
+        window.location = '/login';
       }
-    })
+    });
   });
