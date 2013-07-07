@@ -5,11 +5,7 @@ angular.module('clientApp')
   	var user = Restangular.all('user');
 
   	$scope.register = function() {
-  		user.customPOST('register', {}, {}, $scope.user).then(function(response) {
-  			console.log("Created");
-  			console.log(response.headers('JSESSIONID'));
-  			console.log($cookies);
-  		});
+  		user.customPOST('register', {}, {}, $scope.user);
   	}
 
   	$scope.login = function() {

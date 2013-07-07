@@ -18,7 +18,7 @@ angular.module('clientApp', ['ngCookies', 'restangular'])
     $locationProvider.html5Mode(true).hashPrefix('!');
 
     RestangularProvider.setBaseUrl('http://localhost:8080/service');
-    RestangularProvider.setFullResponse(true);
+    RestangularProvider.setDefaultHttpFields({withCredentials: true});
     RestangularProvider.setErrorInterceptor(function(response) {
       if (response.status === 403) {
         window.location = "/login";
