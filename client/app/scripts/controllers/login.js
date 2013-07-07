@@ -1,15 +1,12 @@
 'use strict';
 
 angular.module('clientApp')
-  .controller('LoginCtrl', function ($scope, $cookies, Restangular) {
-  	var user = Restangular.all('user');
-
+  .controller('LoginCtrl', function ($scope, userService) {
   	$scope.register = function() {
-  		user.customPOST('register', {}, {}, $scope.user);
+      userService.register($scope.user);
   	}
 
   	$scope.login = function() {
-  		var login = Restangular.one('user', 'login');
-  		login.post($scope.user);
+      userService.login($scope.user);
   	}
   });
