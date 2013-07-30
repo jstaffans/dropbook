@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 @Path("/user")
-@Produces(MediaType.TEXT_PLAIN)
+@Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 
     private final DropbookUserDao dao;
@@ -33,7 +33,7 @@ public class UserResource {
 
     @POST
     @Path("/register")
-    public Response register(@Valid DropbookUser user) {
+    public DropbookUser register(@Valid DropbookUser user) {
         if (dao.findUser(user.getUsername(), false) != null) {
             throw new BadRequestException("User already exists");
         }
@@ -43,15 +43,15 @@ public class UserResource {
         String hashedPassword = passwordService.encryptPassword(user.getPassword());
         user.setPassword(hashedPassword);
         user.setRoles(DropbookUser.DEFAULT_ROLES);
-        dao.createUser(user);
+        Long id = dao.createUser(user);
+        user.setId(id);
 
         doLogin(loginToken);
 
-        return Response.created(UriBuilder.fromResource(UserResource.class)
-                                   .build(user.getId())).build();
+        return user;
     }
 
-    private void doLogin(UsernamePasswordToken authToken) {
+    private Subject doLogin(UsernamePasswordToken authToken) {
         Subject currentUser = SecurityUtils.getSubject();
         try {
             currentUser.login(authToken);
@@ -62,10 +62,12 @@ public class UserResource {
         catch (LockedAccountException e) {
             throw new NotAuthorizedException("Account locked");
         }
+        return currentUser;
     }
 
     @POST
     @Path("/login")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response login(@Valid DropbookUser user) {
         UsernamePasswordToken loginToken = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         doLogin(loginToken);
@@ -81,17 +83,6 @@ public class UserResource {
         }
 
         return Response.ok().build();
-    }
-
-    @GET
-    @Path("/loginCheck")
-    public String isLoggedIn() {
-        final Subject subject = SecurityUtils.getSubject();
-        if (subject != null && subject.isAuthenticated()) {
-            return String.format("Logged in as %s", subject.getPrincipal());
-        } else {
-            return "Not logged in";
-        }
     }
 
 }
