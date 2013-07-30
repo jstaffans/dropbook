@@ -6,13 +6,13 @@ describe('Service: user', function () {
   beforeEach(module('clientApp'));
 
   // instantiate service
-  var user;
+  var userService;
   beforeEach(inject(function (_userService_) {
-    user = _userService_;
+    userService = _userService_;
   }));
 
   it('should do something', function () {
-    expect(!!user).toBe(true);
+    expect(!!userService).toBe(true);
   });
 
 });
