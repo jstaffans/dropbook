@@ -68,10 +68,10 @@ public class UserResource {
     @POST
     @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(@Valid DropbookUser user) {
+    public DropbookUser login(@Valid DropbookUser user) {
         UsernamePasswordToken loginToken = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         doLogin(loginToken);
-        return Response.ok().build();
+        return user;
     }
 
     @GET
