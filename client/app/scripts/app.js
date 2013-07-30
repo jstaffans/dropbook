@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('clientApp', ['ngCookies', 'restangular'])
+angular.module('clientApp', ['restangular'])
   .config(function ($routeProvider, $locationProvider, RestangularProvider) {
     $routeProvider
       .when('/login', {
