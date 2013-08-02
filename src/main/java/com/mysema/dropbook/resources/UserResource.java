@@ -1,7 +1,10 @@
 package com.mysema.dropbook.resources;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mysema.dropbook.security.DropbookUser;
 import com.mysema.dropbook.security.DropbookUserDao;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -11,14 +14,12 @@ import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.subject.Subject;
 
 import javax.validation.Valid;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
+import java.io.IOException;
 
+@Slf4j
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
@@ -67,11 +68,30 @@ public class UserResource {
 
     @POST
     @Path("/login")
-    @Produces(MediaType.APPLICATION_JSON)
-    public DropbookUser login(@Valid DropbookUser user) {
-        UsernamePasswordToken loginToken = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-        doLogin(loginToken);
-        return user;
+    @Consumes(MediaType.APPLICATION_JSON)
+    public DropbookUser login(String json) {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode jsonObj;
+        try {
+            jsonObj = mapper.readTree(json);
+        } catch (IOException e) {
+            throw new WebApplicationException();
+        }
+
+        if (jsonObj.has("username")) {
+            UsernamePasswordToken loginToken = new UsernamePasswordToken(jsonObj.get("username").asText(),
+                    jsonObj.get("password").asText());
+            doLogin(loginToken);
+            final DropbookUser loggedInUser = dao.findUser(loginToken.getUsername(), false);
+            return loggedInUser;
+        } else if (jsonObj.has("code")) {
+
+
+
+            return null;
+        } else {
+            throw new NotAuthorizedException("Unknown authentication method");
+        }
     }
 
     @GET

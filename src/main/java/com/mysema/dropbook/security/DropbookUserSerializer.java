@@ -12,6 +12,7 @@ public class DropbookUserSerializer extends JsonSerializer<DropbookUser> {
     public void serialize(DropbookUser dropbookUser, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeNumberField("id", dropbookUser.getId());
+        jsonGenerator.writeStringField("username", dropbookUser.getUsername());
         jsonGenerator.writeEndObject();
     }
 }

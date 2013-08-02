@@ -3,25 +3,17 @@ package com.mysema.dropbook.resources;
 import com.mysema.dropbook.security.AbstractShiroTest;
 import com.mysema.dropbook.security.DropbookUser;
 import com.mysema.dropbook.security.DropbookUserDao;
-import com.sun.javafx.tools.packager.Log;
 import io.ifar.security.realm.model.ISecurityRole;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.credential.PasswordService;
-import org.apache.shiro.mgt.*;
 import org.apache.shiro.subject.Subject;
-import org.hamcrest.Matcher;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
-import java.lang.SecurityManager;
 import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
