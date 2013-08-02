@@ -1,11 +1,15 @@
 'use strict';
 
-angular.module('clientApp', ['restangular'])
+angular.module('clientApp', ['restangular', 'LocalStorageModule'])
   .config(function ($routeProvider, $locationProvider, RestangularProvider) {
     $routeProvider
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
+      })
+      .when('/fb_callback', {
+        templateUrl: 'views/facebookLogin.html',
+        controller: 'FacebookLoginCtrl'
       })
       .when('/', {
         templateUrl: 'views/main.html',
@@ -19,9 +23,4 @@ angular.module('clientApp', ['restangular'])
 
     RestangularProvider.setBaseUrl('http://localhost:8080/service');
     RestangularProvider.setDefaultHttpFields({withCredentials: true});
-    RestangularProvider.setErrorInterceptor(function(response) {
-      if (response.status === 403) {
-        window.location = '/login';
-      }
-    });
   });

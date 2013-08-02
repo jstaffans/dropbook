@@ -10,4 +10,12 @@
       <button type="register" class="pure-button" ng-disabled="user.$invalid" ng-click="register()">Register</button>
     </fieldset>
   </form>
+
+  <div id="messages" ng-show="message">
+    {{message}}
+  </div>
+
+  <p>
+    <a href="https://www.facebook.com/dialog/oauth?client_id=598646113512985&redirect_uri=http://localhost:9000/fb_callback">Log in using Facebook</a>
+  </p>
 </div>

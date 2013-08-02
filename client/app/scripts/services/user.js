@@ -1,24 +1,23 @@
 'use strict';
 
 angular.module('clientApp')
-  .service('userService', function (Restangular) {
-    var user = Restangular.all('user');
-
-    var register = function(u) {
-      user.customPOST('register', {}, {}, u);
+  .service('userService', function (localStorageService) {
+    var setCurrentUser = function(username) {
+      localStorageService.clearAll();
+      localStorageService.add('currentUser', username);
     };
 
-    var login = function(u) {
-      user.customPOST('login', {}, {}, u);
+    var getCurrentUser = function() {
+      return localStorageService.get('currentUser');
     };
 
-    var logout = function() {
-      user.customGET('logout');
+    var clearCurrentUser = function() {
+      localStorageService.clearAll();
     };
 
     return {
-      login: login,
-      logout: logout,
-      register: register
+      setCurrentUser: setCurrentUser,
+      getCurrentUser: getCurrentUser,
+      clearCurrentUser: clearCurrentUser
     };
   });
