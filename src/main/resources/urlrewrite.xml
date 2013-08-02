@@ -6,6 +6,7 @@
 
 <urlrewrite>
 
+    <!-- support AngularJS HTML5 mode (URLs without hashes) -->
     <rule>
         <from>^/(?!((service/.*)|(.*\.png)|(.*\.html)|(.*\.js)|(.*\.css))).*$</from>
         <to>/index.html</to>
