@@ -27,6 +27,7 @@ import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.joda.time.DateTime;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
+import org.tuckey.web.filters.urlrewrite.UrlRewriteFilter;
 
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -73,9 +74,12 @@ public class DropbookService extends Service<DropbookConfiguration> {
         environment.addResource(new UserResource(jdbi.onDemand(DefaultDropbookUserDao.class), new DefaultPasswordService()));
 
         // enable cross-origin ajax
-        FilterBuilder filterBuilder= environment.addFilter(CrossOriginFilter.class, "/*");
-        filterBuilder.setInitParam(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,PUT,DELETE");
-        filterBuilder.setInitParam(CrossOriginFilter.PREFLIGHT_MAX_AGE_PARAM, String.valueOf(60*60*24));
+        FilterBuilder crossAjaxFilter = environment.addFilter(CrossOriginFilter.class, "/*");
+        crossAjaxFilter.setInitParam(CrossOriginFilter.ALLOWED_METHODS_PARAM, "GET,POST,PUT,DELETE");
+        crossAjaxFilter.setInitParam(CrossOriginFilter.PREFLIGHT_MAX_AGE_PARAM, String.valueOf(60 * 60 * 24));
+
+        FilterBuilder rewriteFilter = environment.addFilter(UrlRewriteFilter.class, "/*");
+        rewriteFilter.setInitParam("confPath", "urlrewrite.xml");
     }
 
     private void migrateDatabase(DBI jdbi) throws LiquibaseException {
